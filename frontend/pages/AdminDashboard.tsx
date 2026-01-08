@@ -17,11 +17,11 @@ export default function AdminDashboard() {
     const [projectForm, setProjectForm] = useState(emptyProject);
 
     const [skillsInput, setSkillsInput] = useState({
-    frontend: "",
-    backend: "",
-    database: "",
-    tools: "",
-});
+        frontend: "",
+        backend: "",
+        database: "",
+        tools: "",
+    });
 
 
 
@@ -31,33 +31,35 @@ export default function AdminDashboard() {
     }, []);
 
     const loadAll = async () => {
-    const p = await api.getProfile();
+        const p = await api.getProfile();
 
-    setProfile(p);
-    setProjects(await api.getProjects());
+        const proj = await api.getProjects();
 
-    setSkillsInput({
-        frontend: p.skills.frontend.join(", "),
-        backend: p.skills.backend.join(", "),
-        database: p.skills.database.join(", "),
-        tools: p.skills.tools.join(", "),
-    });
-};
+        setProfile(p);
+        setProjects(Array.isArray(proj) ? proj : []);
+
+        setSkillsInput({
+            frontend: p.skills.frontend.join(", "),
+            backend: p.skills.backend.join(", "),
+            database: p.skills.database.join(", "),
+            tools: p.skills.tools.join(", "),
+        });
+    };
 
 
     const saveProfile = async () => {
-    await api.updateProfile({
-        ...profile,
-        skills: {
-            frontend: skillsInput.frontend.split(",").map(s => s.trim()).filter(Boolean),
-            backend: skillsInput.backend.split(",").map(s => s.trim()).filter(Boolean),
-            database: skillsInput.database.split(",").map(s => s.trim()).filter(Boolean),
-            tools: skillsInput.tools.split(",").map(s => s.trim()).filter(Boolean),
-        },
-    });
+        await api.updateProfile({
+            ...profile,
+            skills: {
+                frontend: skillsInput.frontend.split(",").map(s => s.trim()).filter(Boolean),
+                backend: skillsInput.backend.split(",").map(s => s.trim()).filter(Boolean),
+                database: skillsInput.database.split(",").map(s => s.trim()).filter(Boolean),
+                tools: skillsInput.tools.split(",").map(s => s.trim()).filter(Boolean),
+            },
+        });
 
-    alert("Profile saved");
-};
+        alert("Profile saved");
+    };
 
 
     const submitProject = async () => {
@@ -212,14 +214,6 @@ export default function AdminDashboard() {
                         <input className="input" value={profile.social.twitter || ""}
                             onChange={e => setProfile({ ...profile, social: { ...profile.social, twitter: e.target.value } })} />
                     </div>
-                </div>
-
-
-                {/* PROFILE IMAGE */}
-                <div className="space-y-4">
-                    <h3 className="section-title">Profile Image</h3>
-                    <input className="input" placeholder="Image URL" value={profile.profileImage.url} onChange={e => setProfile({ ...profile, profileImage: { ...profile.profileImage, url: e.target.value } })} />
-                    <input className="input" placeholder="Public ID (optional)" value={profile.profileImage.publicId || ""} onChange={e => setProfile({ ...profile, profileImage: { ...profile.profileImage, publicId: e.target.value } })} />
                 </div>
 
                 {/* SAVE BUTTON */}
