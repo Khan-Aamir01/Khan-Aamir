@@ -1,14 +1,16 @@
 // src/services/api.ts
-const API = "http://localhost:3000/api";
+
+const API_URL = import.meta.env.VITE_API_URL;
+ // fallback for dev
 
 export const api = {
   /* ================= PROFILE ================= */
 
   getProfile: () =>
-    fetch(`${API}/profile`).then((r) => r.json()),
+    fetch(`${API_URL}/api/profile`).then((r) => r.json()),
 
   updateProfile: (data: any) =>
-    fetch(`${API}/profile`, {
+    fetch(`${API_URL}/api/profile`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -20,10 +22,10 @@ export const api = {
   /* ================= PROJECTS ================= */
 
   getProjects: () =>
-    fetch(`${API}/projects`).then((r) => r.json()),
+    fetch(`${API_URL}/api/projects`).then((r) => r.json()),
 
   createProject: (data: any) =>
-    fetch(`${API}/projects`, {
+    fetch(`${API_URL}/api/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +35,7 @@ export const api = {
     }).then((r) => r.json()),
 
   updateProject: (id: string, data: any) =>
-    fetch(`${API}/projects/${id}`, {
+    fetch(`${API_URL}/api/projects/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +45,7 @@ export const api = {
     }).then((r) => r.json()),
 
   deleteProject: (id: string) =>
-    fetch(`${API}/projects/${id}`, {
+    fetch(`${API_URL}/api/projects/${id}`, {
       method: "DELETE",
       headers: api.authHeaders(),
     }).then((r) => r.json()),
@@ -51,7 +53,7 @@ export const api = {
   /* ================= AUTH ================= */
 
   login: async (password: string) => {
-    const res = await fetch("http://localhost:3000/api/auth/login", {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password }),
@@ -68,9 +70,7 @@ export const api = {
 
   authHeaders: (): HeadersInit => {
     const token = localStorage.getItem("token");
-
     if (!token) return {};
-
     return {
       Authorization: `Bearer ${token}`,
     };
