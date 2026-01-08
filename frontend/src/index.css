@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Dark base */
+body {
+  @apply bg-neutral-950 text-neutral-200;
+}
+
+.card {
+  @apply rounded-xl border border-neutral-800 bg-neutral-900 p-6;
+}
+
+.section-title {
+  @apply text-sm font-medium uppercase tracking-wide text-neutral-400;
+}
+
+.input {
+  @apply w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2
+         text-sm text-neutral-200 outline-none transition
+         placeholder:text-neutral-500
+         focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-lg
+         bg-neutral-200 px-5 py-2 text-sm font-medium text-neutral-900
+         transition hover:bg-white;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-lg
+         border border-neutral-700 px-4 py-2 text-sm
+         text-neutral-300 hover:bg-neutral-800 transition;
+}
+
+.btn-danger {
+  @apply text-sm text-red-400 hover:text-red-300 transition;
+}
+.label {
+  @apply block text-xs font-medium text-neutral-400 mb-1;
+}
+
+
