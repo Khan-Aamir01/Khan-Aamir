@@ -149,9 +149,9 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="md:col-span-2">
-                        <label className="label">Hero Image URL</label>
-                        <input className="input" value={profile.imageUrl}
-                            onChange={e => setProfile({ ...profile, imageUrl: e.target.value })} />
+                        <label className="label">FooterText</label>
+                        <input className="input" value={profile.footerText}
+                            onChange={e => setProfile({ ...profile, footerText: e.target.value })} />
                     </div>
 
                     <div className="md:col-span-2">
