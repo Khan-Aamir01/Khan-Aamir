@@ -25,7 +25,7 @@ export default function Hero({ profile }: { profile: any }) {
               
               {/* Replace src with your image */}
               <img
-                src="/src/assets/ChatGPT Image Apr 8, 2025, 11_45_21 AM.png"
+                src="/src/assets/default.png"
                 alt="Khan Aamir"
                 className="w-full h-full object-cover grayscale"
               />

@@ -1,10 +1,9 @@
 
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 
 export default function Navbar({ profile }: { profile: any }) {
-  const [theme, setTheme] = useState("dark");
   const logoName = profile.logoName || "Khan Aamir";
-
+  const theme = "dark"; //for now
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
