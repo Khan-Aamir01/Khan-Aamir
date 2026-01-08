@@ -1,3 +1,4 @@
+import defaultImage from "../assets/default.png";
 export default function Hero({ profile }: { profile: any }) {
   const fullname = profile.fullName || "Khan Mohd Aamir";
   const role = profile.role || "Software Developer";
@@ -25,7 +26,7 @@ export default function Hero({ profile }: { profile: any }) {
               
               {/* Replace src with your image */}
               <img
-                src="/src/assets/default.png"
+                src={defaultImage}
                 alt="Khan Aamir"
                 className="w-full h-full object-cover grayscale"
               />
