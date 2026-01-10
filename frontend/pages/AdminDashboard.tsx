@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
+import Logout from "../src/components/Logout";
 
 export default function AdminDashboard() {
     const [profile, setProfile] = useState<any>(null);
@@ -16,16 +17,6 @@ export default function AdminDashboard() {
 
     const [projectForm, setProjectForm] = useState(emptyProject);
 
-    const [skillsInput, setSkillsInput] = useState({
-        frontend: "",
-        backend: "",
-        database: "",
-        tools: "",
-    });
-
-
-
-
     useEffect(() => {
         loadAll();
     }, []);
@@ -38,27 +29,17 @@ export default function AdminDashboard() {
         setProfile(p);
         setProjects(Array.isArray(proj) ? proj : []);
 
-        setSkillsInput({
-            frontend: p.skills.frontend.join(", "),
-            backend: p.skills.backend.join(", "),
-            database: p.skills.database.join(", "),
-            tools: p.skills.tools.join(", "),
-        });
     };
 
 
     const saveProfile = async () => {
-        await api.updateProfile({
-            ...profile,
-            skills: {
-                frontend: skillsInput.frontend.split(",").map(s => s.trim()).filter(Boolean),
-                backend: skillsInput.backend.split(",").map(s => s.trim()).filter(Boolean),
-                database: skillsInput.database.split(",").map(s => s.trim()).filter(Boolean),
-                tools: skillsInput.tools.split(",").map(s => s.trim()).filter(Boolean),
-            },
-        });
-
-        alert("Profile saved");
+        try {
+            await api.updateProfile(profile);
+            alert("Profile saved");
+        } catch (err) {
+            console.error(err);
+            alert("Failed to save profile");
+        }
     };
 
 
@@ -105,6 +86,9 @@ export default function AdminDashboard() {
                     Manage profile and projects
                 </p>
             </header>
+            <div className="flex justify-end p-4">
+                <Logout />
+            </div>
 
             {/* PROFILE */}
             <section className="card space-y-10">
@@ -169,26 +153,83 @@ export default function AdminDashboard() {
 
                     <div>
                         <label className="label">Frontend</label>
-                        <input className="input" value={profile.skills.frontend}
-                            onChange={e => setProfile({ ...profile, skills: { ...profile.skills, frontend: e.target.value } })} />
+                        <input
+                            className="input"
+                            value={profile.skills.frontend.join(", ")}
+                            onChange={e =>
+                                setProfile({
+                                    ...profile,
+                                    skills: {
+                                        ...profile.skills,
+                                        frontend: e.target.value
+                                            .split(",")
+                                            .map(s => s.trim())
+                                            .filter(Boolean),
+                                    },
+                                })
+                            }
+                        />
+
                     </div>
 
                     <div>
                         <label className="label">Backend</label>
-                        <input className="input" value={profile.skills.backend}
-                            onChange={e => setProfile({ ...profile, skills: { ...profile.skills, backend: e.target.value } })} />
+                        <input
+                            className="input"
+                            value={profile.skills.backend.join(", ")}
+                            onChange={e =>
+                                setProfile({
+                                    ...profile,
+                                    skills: {
+                                        ...profile.skills,
+                                        backend: e.target.value
+                                            .split(",")
+                                            .map(s => s.trim())
+                                            .filter(Boolean),
+                                    },
+                                })
+                            }
+                        />
                     </div>
 
                     <div>
                         <label className="label">Database</label>
-                        <input className="input" value={profile.skills.database}
-                            onChange={e => setProfile({ ...profile, skills: { ...profile.skills, database: e.target.value } })} />
+                        <input
+                            className="input"
+                            value={profile.skills.database.join(", ")}
+                            onChange={e =>
+                                setProfile({
+                                    ...profile,
+                                    skills: {
+                                        ...profile.skills,
+                                        database: e.target.value
+                                            .split(",")
+                                            .map(s => s.trim())
+                                            .filter(Boolean),
+                                    },
+                                })
+                            }
+                        />
                     </div>
 
                     <div>
                         <label className="label">Tools</label>
-                        <input className="input" value={profile.skills.tools}
-                            onChange={e => setProfile({ ...profile, skills: { ...profile.skills, tools: e.target.value } })} />
+                        <input
+                            className="input"
+                            value={profile.skills.tools.join(", ")}
+                            onChange={e =>
+                                setProfile({
+                                    ...profile,
+                                    skills: {
+                                        ...profile.skills,
+                                        tools: e.target.value
+                                            .split(",")
+                                            .map(s => s.trim())
+                                            .filter(Boolean),
+                                    },
+                                })
+                            }
+                        />
                     </div>
                 </div>
 
@@ -265,7 +306,7 @@ export default function AdminDashboard() {
                     ))}
                 </div>
             </section>
-
+            
         </div>
     );
 }

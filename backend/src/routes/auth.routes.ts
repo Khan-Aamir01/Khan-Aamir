@@ -24,4 +24,9 @@ router.post("/login", (req, res) => {
   res.json({ token });
 });
 
+router.post("/logout", (req, res) => {
+  res.json({ message: "Logged out successfully" });
+});
+
+
 export default router;

@@ -1,7 +1,7 @@
 // src/services/api.ts
 
 const API_URL = import.meta.env.VITE_API_URL;
- // fallback for dev
+// fallback for dev
 
 export const api = {
   /* ================= PROFILE ================= */
@@ -17,7 +17,20 @@ export const api = {
         ...api.authHeaders(),
       },
       body: JSON.stringify(data),
-    }).then((r) => r.json()),
+    }).then(async (r) => {
+      if (!r.ok) {
+        // Extract backend error message if present
+        const err = await r.json().catch(() => ({}));
+        if (r.status === 401) {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }
+        throw new Error(err.message || `HTTP Error ${r.status}`);
+      }
+
+      return r.json();
+    }),
+
 
   /* ================= PROJECTS ================= */
 
@@ -65,6 +78,11 @@ export const api = {
 
     return res.json();
   },
+
+  logout: () =>
+    fetch(`${API_URL}/api/auth/logout`, {
+      method: "POST",
+    }).then(res => res.json()),
 
   /* ================= HEADERS ================= */
 

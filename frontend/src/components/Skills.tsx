@@ -28,7 +28,7 @@ export default function Skills({ profile }: { profile?: any }) {
 
   return (
     <section className="w-full bg-white dark:bg-black text-black dark:text-white">
-      <div className="max-w-7xl mx-auto px-6 py-24">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-16">
           Skills
         </h2>

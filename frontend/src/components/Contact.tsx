@@ -11,7 +11,7 @@ export default function Contact({ profile }: { profile: any }) {
 
   return (
     <section className="w-full bg-white dark:bg-black text-black dark:text-white">
-      <div className="max-w-7xl mx-auto px-6 py-24">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
 
           {/* Left: Contact Info */}
