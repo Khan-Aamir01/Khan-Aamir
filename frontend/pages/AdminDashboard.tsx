@@ -15,6 +15,25 @@ export default function AdminDashboard() {
         liveUrl: "",
     };
 
+    const [skillsText, setSkillsText] = useState({
+        frontend: "",
+        backend: "",
+        database: "",
+        tools: "",
+    });
+
+    useEffect(() => {
+        if (profile) {
+            setSkillsText({
+                frontend: profile.skills.frontend.join(", "),
+                backend: profile.skills.backend.join(", "),
+                database: profile.skills.database.join(", "),
+                tools: profile.skills.tools.join(", "),
+            });
+        }
+    }, [profile]);
+
+
     const [projectForm, setProjectForm] = useState(emptyProject);
 
     useEffect(() => {
@@ -33,14 +52,29 @@ export default function AdminDashboard() {
 
 
     const saveProfile = async () => {
-        try {
-            await api.updateProfile(profile);
-            alert("Profile saved");
-        } catch (err) {
-            console.error(err);
-            alert("Failed to save profile");
-        }
+  try {
+    const updatedProfile = {
+      ...profile,
+      skills: {
+        frontend: skillsText.frontend.split(",").map(s => s.trim()).filter(Boolean),
+        backend: skillsText.backend.split(",").map(s => s.trim()).filter(Boolean),
+        database: skillsText.database.split(",").map(s => s.trim()).filter(Boolean),
+        tools: skillsText.tools.split(",").map(s => s.trim()).filter(Boolean),
+      },
     };
+
+    await api.updateProfile(updatedProfile);
+
+    // 🔥 THIS was missing
+    setProfile(updatedProfile);
+
+    alert("Profile saved");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to save");
+  }
+};
+
 
 
     const submitProject = async () => {
@@ -155,18 +189,9 @@ export default function AdminDashboard() {
                         <label className="label">Frontend</label>
                         <input
                             className="input"
-                            value={profile.skills.frontend.join(", ")}
+                            value={skillsText.frontend}
                             onChange={e =>
-                                setProfile({
-                                    ...profile,
-                                    skills: {
-                                        ...profile.skills,
-                                        frontend: e.target.value
-                                            .split(",")
-                                            .map(s => s.trim())
-                                            .filter(Boolean),
-                                    },
-                                })
+                                setSkillsText({ ...skillsText, frontend: e.target.value })
                             }
                         />
 
@@ -176,18 +201,9 @@ export default function AdminDashboard() {
                         <label className="label">Backend</label>
                         <input
                             className="input"
-                            value={profile.skills.backend.join(", ")}
+                            value={skillsText.backend}
                             onChange={e =>
-                                setProfile({
-                                    ...profile,
-                                    skills: {
-                                        ...profile.skills,
-                                        backend: e.target.value
-                                            .split(",")
-                                            .map(s => s.trim())
-                                            .filter(Boolean),
-                                    },
-                                })
+                                setSkillsText({ ...skillsText, backend: e.target.value })
                             }
                         />
                     </div>
@@ -196,18 +212,9 @@ export default function AdminDashboard() {
                         <label className="label">Database</label>
                         <input
                             className="input"
-                            value={profile.skills.database.join(", ")}
+                            value={skillsText.database}
                             onChange={e =>
-                                setProfile({
-                                    ...profile,
-                                    skills: {
-                                        ...profile.skills,
-                                        database: e.target.value
-                                            .split(",")
-                                            .map(s => s.trim())
-                                            .filter(Boolean),
-                                    },
-                                })
+                                setSkillsText({ ...skillsText, database: e.target.value })
                             }
                         />
                     </div>
@@ -216,18 +223,9 @@ export default function AdminDashboard() {
                         <label className="label">Tools</label>
                         <input
                             className="input"
-                            value={profile.skills.tools.join(", ")}
+                            value={skillsText.tools}
                             onChange={e =>
-                                setProfile({
-                                    ...profile,
-                                    skills: {
-                                        ...profile.skills,
-                                        tools: e.target.value
-                                            .split(",")
-                                            .map(s => s.trim())
-                                            .filter(Boolean),
-                                    },
-                                })
+                                setSkillsText({ ...skillsText, tools: e.target.value })
                             }
                         />
                     </div>
@@ -306,7 +304,7 @@ export default function AdminDashboard() {
                     ))}
                 </div>
             </section>
-            
+
         </div>
     );
 }
