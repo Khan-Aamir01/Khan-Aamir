@@ -1,17 +1,11 @@
-// components/LogoutButton.tsx
 import { useNavigate } from "react-router-dom";
-import { api } from "../../services/api";
 
 export default function Logout() {
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await api.logout(); // optional, your backend just returns success
-    } catch {}
-
+  const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   return (

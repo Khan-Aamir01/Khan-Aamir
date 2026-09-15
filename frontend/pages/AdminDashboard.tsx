@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { api } from "../services/api";
 import Logout from "../src/components/Logout";
+import { dummyProfile, dummyProjects } from "../src/data/portfolio";
 
 export default function AdminDashboard() {
     const [profile, setProfile] = useState<any>(null);
@@ -40,58 +40,47 @@ export default function AdminDashboard() {
         loadAll();
     }, []);
 
-    const loadAll = async () => {
-        const p = await api.getProfile();
-
-        const proj = await api.getProjects();
-
-        setProfile(p);
-        setProjects(Array.isArray(proj) ? proj : []);
-
+    const loadAll = () => {
+        setProfile({ ...dummyProfile, social: { ...dummyProfile.social }, skills: { ...dummyProfile.skills } });
+        setProjects(dummyProjects.map((project) => ({ ...project, techStack: [...project.techStack] })));
     };
 
+    const saveProfile = () => {
+        const updatedProfile = {
+            ...profile,
+            skills: {
+                frontend: skillsText.frontend.split(",").map((s: string) => s.trim()).filter(Boolean),
+                backend: skillsText.backend.split(",").map((s: string) => s.trim()).filter(Boolean),
+                database: skillsText.database.split(",").map((s: string) => s.trim()).filter(Boolean),
+                tools: skillsText.tools.split(",").map((s: string) => s.trim()).filter(Boolean),
+            },
+        };
 
-    const saveProfile = async () => {
-  try {
-    const updatedProfile = {
-      ...profile,
-      skills: {
-        frontend: skillsText.frontend.split(",").map(s => s.trim()).filter(Boolean),
-        backend: skillsText.backend.split(",").map(s => s.trim()).filter(Boolean),
-        database: skillsText.database.split(",").map(s => s.trim()).filter(Boolean),
-        tools: skillsText.tools.split(",").map(s => s.trim()).filter(Boolean),
-      },
+        setProfile(updatedProfile);
+        alert("Profile saved locally (not connected to a backend)");
     };
 
-    await api.updateProfile(updatedProfile);
-
-    // 🔥 THIS was missing
-    setProfile(updatedProfile);
-
-    alert("Profile saved");
-  } catch (err) {
-    console.error(err);
-    alert("Failed to save");
-  }
-};
-
-
-
-    const submitProject = async () => {
+    const submitProject = () => {
         const payload = {
             ...projectForm,
             techStack: projectForm.techStack.split(",").map((t: string) => t.trim()),
         };
 
         if (editingProject) {
-            await api.updateProject(editingProject._id, payload);
+            setProjects((current) =>
+                current.map((project) =>
+                    project._id === editingProject._id ? { ...project, ...payload } : project
+                )
+            );
         } else {
-            await api.createProject(payload);
+            setProjects((current) => [
+                ...current,
+                { ...payload, _id: String(Date.now()) },
+            ]);
         }
 
         setProjectForm(emptyProject);
         setEditingProject(null);
-        loadAll();
     };
 
     const editProject = (p: any) => {
@@ -102,10 +91,9 @@ export default function AdminDashboard() {
         });
     };
 
-    const deleteProject = async (id: string) => {
+    const deleteProject = (id: string) => {
         if (!confirm("Delete this project?")) return;
-        await api.deleteProject(id);
-        loadAll();
+        setProjects((current) => current.filter((project) => project._id !== id));
     };
 
     if (!profile) return <p className="p-6">Loading…</p>;

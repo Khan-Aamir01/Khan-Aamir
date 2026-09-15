@@ -2,7 +2,7 @@ export default function About({ profile }: { profile: any }) {
   const aboutme = "I’m a Computer Engineering graduate with a B.E. degree from Mumbai University and a strong passion for computer science. I enjoy exploring how things work under the hood and building practical, real-world projects.I’ve worked on several full-stack projects using React, Node.js, MongoDB, and PostgreSQL, and I’m comfortable with concepts like authentication, APIs, and basic networking. I enjoy turning ideas into working products and continuously improving my engineering skills.Outside of building, I spend a lot of time watching, learning, and experimenting with computer science topics, from system design to low-level concepts. I’m driven by curiosity and a love for creating things that actually work."
   const about = profile.about || aboutme;
   return (
-    <section className="w-full bg-white dark:bg-black text-black dark:text-white">
+    <section className="w-full bg-white dark:bg-black text-black dark:text-white snap-start">
       <div className="max-w-7xl mx-auto px-6 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           

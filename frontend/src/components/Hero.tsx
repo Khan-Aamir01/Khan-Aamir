@@ -3,7 +3,7 @@ export default function Hero({ profile }: { profile: any }) {
   const fullname = profile.fullName || "Khan Mohd Aamir";
   const role = profile.role || "Software Developer";
   return (
-    <section className="w-full bg-white dark:bg-black text-black dark:text-white">
+    <section className="w-full bg-white dark:bg-black text-black dark:text-white snap-start">
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
           

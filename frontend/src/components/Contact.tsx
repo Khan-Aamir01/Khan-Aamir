@@ -1,20 +1,19 @@
-
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { dummyProfile } from "../data/portfolio";
 
-export default function Contact({ profile }: { profile: any }) {
-  const location = profile.location || "Mumbai India";
-  const email = profile.email || "aamir989280@gmail.com";
-  const num = profile.phone || "+91 9892808248";
-  const twitter = profile.social.twitter || "#";
-  const github = profile.social.github || "https://github.com/khan-aamir01";
-  const linkedin = profile.social.linkedin || "https://www.linkedin.com/in/mohd-aamir-khan-197715332?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app";
+export default function Contact({ profile }: { profile?: typeof dummyProfile }) {
+  const data = profile ?? dummyProfile;
+  const location = data.location;
+  const email = data.email;
+  const num = data.phone;
+  const twitter = data.social?.twitter || "#";
+  const github = data.social?.github || "#";
+  const linkedin = data.social?.linkedin || "#";
 
   return (
-    <section className="w-full bg-white dark:bg-black text-black dark:text-white">
+    <section className="w-full bg-white dark:bg-black text-black dark:text-white snap-start">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-
-          {/* Left: Contact Info */}
           <div className="space-y-6">
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
               Contact
@@ -37,35 +36,23 @@ export default function Contact({ profile }: { profile: any }) {
               </div>
             </div>
 
-            {/* Socials */}
             <div className="flex items-center gap-6 pt-6 border-t border-black/10 dark:border-white/10">
-              <a
-                href={twitter}
-                className="hover:opacity-60 transition"
-                aria-label="X"
-              >
+              <a href={twitter} className="hover:opacity-60 transition" aria-label="X">
                 <Twitter size={20} />
               </a>
-              <a
-                href={linkedin}
-                className="hover:opacity-60 transition"
-                aria-label="LinkedIn"
-              >
+              <a href={linkedin} className="hover:opacity-60 transition" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
-              <a
-                href={github}
-                className="hover:opacity-60 transition"
-                aria-label="GitHub"
-              >
+              <a href={github} className="hover:opacity-60 transition" aria-label="GitHub">
                 <Github size={20} />
               </a>
             </div>
           </div>
 
-          {/* Right: Contact Form */}
-          <form className="bg-zinc-100 dark:bg-zinc-900 border border-black/5 dark:border-white/5 rounded-xl p-8 space-y-6">
-            
+          <form
+            className="bg-zinc-100 dark:bg-zinc-900 border border-black/5 dark:border-white/5 rounded-xl p-8 space-y-6"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <div>
               <label className="block text-sm mb-2 text-black/70 dark:text-white/70">
                 Name
@@ -112,9 +99,7 @@ export default function Contact({ profile }: { profile: any }) {
             >
               Send Message
             </button>
-
           </form>
-
         </div>
       </div>
     </section>

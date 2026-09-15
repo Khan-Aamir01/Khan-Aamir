@@ -1,23 +1,11 @@
-type SkillsGroup = {
-  frontend: string[];
-  backend: string[];
-  database: string[];
-  tools: string[];
-};
+import type { SkillsGroup } from "../data/portfolio";
+import { dummyProfile } from "../data/portfolio";
 
-const DEFAULT_SKILLS: SkillsGroup = {
-  frontend: ["React", "Tailwind CSS", "HTML", "CSS", "JavaScript"],
-  backend: ["Node.js", "Express", "REST APIs", "Java"],
-  database: ["MongoDB", "PostgreSQL","MySQL"],
-  tools: ["Git","Postman","VS Code","IntelliJ Idea"],
-};
-
-export default function Skills({ profile }: { profile?: any }) {
+export default function Skills({ profile }: { profile?: { skills?: SkillsGroup } }) {
   const skills: SkillsGroup =
-    profile?.skills &&
-    Array.isArray(profile.skills.frontend)
+    profile?.skills && Array.isArray(profile.skills.frontend)
       ? profile.skills
-      : DEFAULT_SKILLS;
+      : dummyProfile.skills;
 
   const groups = [
     { title: "Frontend", items: skills.frontend },
@@ -27,7 +15,7 @@ export default function Skills({ profile }: { profile?: any }) {
   ];
 
   return (
-    <section className="w-full bg-white dark:bg-black text-black dark:text-white">
+    <section className="w-full bg-white dark:bg-black text-black dark:text-white snap-start">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-16">
           Skills
@@ -41,9 +29,7 @@ export default function Skills({ profile }: { profile?: any }) {
                          border border-black/5 dark:border-white/5
                          rounded-xl p-8"
             >
-              <h3 className="text-lg font-medium mb-4">
-                {group.title}
-              </h3>
+              <h3 className="text-lg font-medium mb-4">{group.title}</h3>
 
               <p className="text-black/70 dark:text-white/70 leading-relaxed">
                 {group.items.join(" · ")}
