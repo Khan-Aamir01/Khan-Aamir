@@ -1,5 +1,6 @@
 import type { SkillsGroup } from "../data/portfolio";
 import { dummyProfile } from "../data/portfolio";
+import SkillIcon from "./SkillIcon";
 
 export default function Skills({ profile }: { profile?: { skills?: SkillsGroup } }) {
   const skills: SkillsGroup =
@@ -29,11 +30,26 @@ export default function Skills({ profile }: { profile?: { skills?: SkillsGroup }
                          border border-black/5 dark:border-white/5
                          rounded-xl p-8"
             >
-              <h3 className="text-lg font-medium mb-4">{group.title}</h3>
+              <h3 className="text-lg font-semibold mb-6 tracking-tight text-black dark:text-white">
+                {group.title}
+              </h3>
 
-              <p className="text-black/70 dark:text-white/70 leading-relaxed">
-                {group.items.join(" · ")}
-              </p>
+              <div className="flex flex-wrap gap-3">
+                {group.items.map((item) => (
+                  <div
+                    key={item}
+                    className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-lg 
+                               bg-white dark:bg-zinc-800/80 
+                               border border-black/5 dark:border-white/10 
+                               text-black/85 dark:text-white/85 
+                               hover:border-black/25 dark:hover:border-white/25 
+                               hover:scale-[1.02] transition-all shadow-xs"
+                  >
+                    <SkillIcon name={item} className="w-5 h-5 shrink-0" />
+                    <span className="text-sm font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

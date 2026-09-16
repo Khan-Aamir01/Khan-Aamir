@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Github, ExternalLink, Info, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Github, ExternalLink, Info } from "lucide-react";
 import type { Project } from "../data/portfolio";
 import { dummyProjects } from "../data/portfolio";
 
@@ -9,18 +9,6 @@ const actionClass =
 export default function Projects({ projects }: { projects?: Project[] }) {
   const safeProjects =
     projects && projects.length > 0 ? projects : dummyProjects;
-  const [selected, setSelected] = useState<Project | null>(null);
-
-  useEffect(() => {
-    if (!selected) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelected(null);
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [selected]);
 
   return (
     <section className="w-full bg-white dark:bg-black text-black dark:text-white snap-start">
@@ -68,92 +56,19 @@ export default function Projects({ projects }: { projects?: Project[] }) {
                   <Github className="w-4 h-4" />
                   GitHub
                 </a>
-                <a
-                  href={project.liveUrl || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={actionClass}
-                >
+                <Link to="/coming-soon" className={actionClass}>
                   <ExternalLink className="w-4 h-4" />
                   Live Demo
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setSelected(project)}
-                  className={actionClass}
-                >
+                </Link>
+                <Link to="/coming-soon" className={actionClass}>
                   <Info className="w-4 h-4" />
                   Details
-                </button>
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      {selected && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs px-4"
-          onClick={() => setSelected(null)}
-        >
-          <div
-            className="w-full max-w-lg rounded-xl border border-white/10 bg-zinc-900 p-8 text-white relative shadow-2xl"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="flex items-start justify-between gap-4 mb-4">
-              <h3 className="text-2xl font-semibold">{selected.title}</h3>
-              <button
-                type="button"
-                onClick={() => setSelected(null)}
-                aria-label="Close dialog"
-                className="text-white/60 hover:text-white transition-colors cursor-pointer p-1 rounded-md hover:bg-white/10"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <p className="text-white/70 leading-relaxed mb-6">
-              {selected.description}
-            </p>
-            <div className="flex flex-wrap gap-2 mb-8">
-              {selected.techStack.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-3 py-1 rounded-full border border-white/10 text-white/60"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <a
-                href={selected.githubUrl || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={actionClass}
-              >
-                <Github className="w-4 h-4" />
-                GitHub
-              </a>
-              <a
-                href={selected.liveUrl || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={actionClass}
-              >
-                <ExternalLink className="w-4 h-4" />
-                Live Demo
-              </a>
-              <button
-                type="button"
-                onClick={() => setSelected(null)}
-                className={actionClass}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

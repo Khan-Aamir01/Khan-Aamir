@@ -38,14 +38,14 @@ export const dummyProfile: Profile = {
   role: "Software Developer",
   imageUrl: "",
   about:
-    "I’m a Computer Engineering graduate with a B.E. degree from Mumbai University and a strong passion for computer science. I enjoy exploring how things work under the hood and building practical, real-world projects. I’ve worked on several full-stack projects using React, Node.js, MongoDB, and PostgreSQL, and I’m comfortable with concepts like authentication, APIs, and basic networking. I enjoy turning ideas into working products and continuously improving my engineering skills. Outside of building, I spend a lot of time watching, learning, and experimenting with computer science topics, from system design to low-level concepts. I’m driven by curiosity and a love for creating things that actually work.",
+    "I’m a Computer Engineering graduate with a B.E. degree from Mumbai University and a strong passion for computer science. I enjoy exploring how things work under the hood and building practical, real-world projects. I’ve worked on several full-stack projects using SpringBoot,Expo,React, Node.js, MongoDB, and PostgreSQL, and I’m comfortable with concepts like authentication, APIs, and basic networking. I enjoy turning ideas into working products and continuously improving my engineering skills. Outside of building, I spend a lot of time watching, learning, and experimenting with computer science topics, from system design to low-level concepts. I’m driven by curiosity and a love for creating things that actually work.",
   email: "aamir989280@gmail.com",
-  phone: "9892808248",
+  phone: "+91 9892808248",
   location: "Mumbai, India",
   footerText: "Made with Hope!",
   skills: {
     frontend: ["React", "Tailwind CSS", "HTML", "CSS", "JavaScript"],
-    backend: ["Node.js", "Express", "REST APIs", "Java"],
+    backend: ["Springboot","Node.js", "Express", "REST APIs", "Java"],
     database: ["MongoDB", "PostgreSQL", "MySQL"],
     tools: ["Git", "Postman", "VS Code", "IntelliJ Idea"],
   },
@@ -63,8 +63,8 @@ export const dummyProjects: Project[] = [
     title: "Real-time Chat Application",
     description:
       "A full-stack real-time chat app with authentication, WebSocket-based messaging, and responsive UI. Implemented message persistence with a database, handled room/channel logic, and ensured seamless live updates across clients.",
-    techStack: ["React", "Node.js", "WebSocket", "MongoDB"],
-    githubUrl: "#",
+    techStack: ["Expo", "Springboot", "WebSocket", "Supabase"],
+    githubUrl: "https://github.com/Khan-Aamir01/Ping",
     liveUrl: "#",
   },
   {
@@ -72,8 +72,8 @@ export const dummyProjects: Project[] = [
     title: "Library Management System",
     description:
       "Developed a web application to streamline library operations, integrating functionalities like user authentication, book management, and fine tracking. Utilized the MERN stack (MongoDB, Express.js, React.js, Node.js) to build a responsive and intuitive user interface.",
-    techStack: ["React", "Node.js", "Express", "JWT", "MongoDB"],
-    githubUrl: "#",
+    techStack: ["React", "Node.js", "Express", "MongoDB"],
+    githubUrl: "https://github.com/Khan-Aamir01/Library-Management-System",
     liveUrl: "#",
   },
   {
@@ -82,7 +82,7 @@ export const dummyProjects: Project[] = [
     description:
       "Built a SaaS MVP for small businesses to collect customer feedback through voice recording and speech-to-text. Implemented a sentiment analysis pipeline to classify positive/negative feedback and generate insights.",
     techStack: ["Python", "Supabase", "FastAPI", "ML"],
-    githubUrl: "#",
+    githubUrl: "https://github.com/Khan-Aamir01/Smart-Feedback-System",
     liveUrl: "#",
   },
   {
@@ -91,7 +91,7 @@ export const dummyProjects: Project[] = [
     description:
       "Developed an AI-based system for glaucoma detection and monitoring using retinal images captured with a 20D lens. Implemented deep learning models including ResNet, YOLO, and U-Net for image classification, segmentation, and preprocessing. Built a React UI for visualization and reporting, with a Python Flask backend handling model inference.",
     techStack: ["Python", "Flask", "Deep Learning", "Hardware"],
-    githubUrl: "#",
+    githubUrl: "https://github.com/Khan-Aamir01/glaucoma",
     liveUrl: "#",
   },
 ];
