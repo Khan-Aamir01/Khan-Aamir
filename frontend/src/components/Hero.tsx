@@ -28,7 +28,7 @@ export default function Hero({ profile }: { profile: any }) {
               <img
                 src={defaultImage}
                 alt="Khan Aamir"
-                className="w-full h-full object-cover grayscale"
+                className="w-full h-full object-cover"
               />
 
               {/* If no image yet, use this instead 👇 */}
